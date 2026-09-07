@@ -1,0 +1,9 @@
+/.gradle/
+/build/
+/build/classes/java/main/
+/bin/
+/.idea/
+/libs/
+**/.env
+**/.env.*
+!**/.env.example

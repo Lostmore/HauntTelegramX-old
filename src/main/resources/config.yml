@@ -1,0 +1,11 @@
+lost_connection_timer: 300
+autorized_users:
+- 1137489984
+support_users: []
+
+global_database:
+  database:
+  hostname:
+  port: '3306'
+  username: 
+  password: 

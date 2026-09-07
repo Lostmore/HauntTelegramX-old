@@ -1,0 +1,57 @@
+plugins {
+    id 'java'
+}
+
+group = 'haunt.trust'
+version = '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+tasks.withType(JavaCompile).configureEach {
+    // options.compilerArgs += "--enable-preview"
+}
+
+dependencies {
+    implementation fileTree(dir: "libs",includes: ["*.jar"])
+    implementation("org.telegram:telegrambots-meta:9.2.1")
+    implementation("org.telegram:telegrambots-longpolling:9.2.1")
+    implementation("org.telegram:telegrambots-client:9.2.1")
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation("org.yaml:snakeyaml:2.4")
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    implementation("org.slf4j:slf4j-api:2.0.17")
+    implementation("org.slf4j:slf4j-simple:2.0.17")
+
+    implementation 'com.zaxxer:HikariCP:4.0.3'
+    implementation 'com.mysql:mysql-connector-j:8.0.31'
+    implementation 'io.github.cdimascio:dotenv-java:3.2.0'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+    sourceCompatibility = targetCompatibility = "21"
+}
+
+jar {
+    archiveFileName = 'telegrambot.jar'
+    from {
+        configurations.runtimeClasspath.collect { it.directory ? it : zipTree(it) }
+    }
+    duplicatesStrategy DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes(
+                'Main-Class': 'haunt.trust.Main'
+        )
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
